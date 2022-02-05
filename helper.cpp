@@ -1,12 +1,21 @@
 #include <iostream>
 #include <vector>
 
-int getAverage(std::vector<int> vec) {
+std::vector<int> add_to_position(std::vector<int> vec, int val, int position) {
+        std::vector<int> newVec(vec.size() + 1);
+        for (int i = newVec.size(); i != position; i--) {
+            newVec[i] = vec[i - 1];
+        }
+        newVec[position] = val;
+        return newVec;
+}
+
+float getAverage(std::vector<int> vec) {
     int sum = 0;
-    for (int i = 0; i < vec.size() - 1; i++) {
+    for (int i = 0; i < vec.size(); i++) {
         sum += vec[i];
     }
-    int average = sum / vec.size();
+    float average = (float) sum / vec.size();
     return average;
 }
 
