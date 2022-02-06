@@ -2,12 +2,30 @@
 #include <vector>
 
 std::vector<int> add_to_position(std::vector<int> vec, int val, int position) {
-        std::vector<int> newVec(vec.size() + 1);
-        for (int i = newVec.size(); i != position; i--) {
+    if (position > vec.size()) { // in this case all elements between vec.size() - 1 and position will be = 0
+
+        std::vector<int> newVec(position + 1); // if position more than vec.size we need another vector with suitable size
+
+        for (int i = 0; i < vec.size(); i++) {
+            newVec[i] = vec[i]; // we should save values from vec in newVec
+        }
+        newVec[position] = val; // add new val into position
+
+        return newVec;
+
+    } else if (position <= vec.size()) { // also, we can use function add(std::vector<int> vec, int num) in case position = vec.size()
+
+        std::vector<int> newVec(vec.size() + 1); // we need to increase size by one to add val
+
+        for (int i = 0; i != position; i++) { // save elements on the left of position
+            newVec[i] = vec[i];
+        }
+        for (int i = newVec.size() - 1; i != position; i--) { // shift elements to the right by one
             newVec[i] = vec[i - 1];
         }
-        newVec[position] = val;
+        newVec[position] = val; // add new val into position
         return newVec;
+    }
 }
 
 float getAverage(std::vector<int> vec) {
