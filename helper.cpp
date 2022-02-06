@@ -1,6 +1,18 @@
 #include <iostream>
 #include <vector>
 
+std::vector<int> add(std::vector<int> vec, int num) {
+    std::vector<int> newVec(vec.size() + 1);
+
+    for (int i = 0; i < vec.size(); i++) {
+        newVec[i] = vec[i];
+    }
+
+    newVec[vec.size()] = num;
+
+    return newVec;
+}
+
 std::vector<int> add_to_position(std::vector<int> vec, int val, int position) {
     if (position > vec.size()) { // in this case all elements between vec.size() - 1 and position will be = 0
 
@@ -13,18 +25,21 @@ std::vector<int> add_to_position(std::vector<int> vec, int val, int position) {
 
         return newVec;
 
-    } else if (position <= vec.size()) { // also, we can use function add(std::vector<int> vec, int num) in case position = vec.size()
+    } else if (position < vec.size()) { // also, we can use function add(std::vector<int> vec, int num) in case position = vec.size()
 
         std::vector<int> newVec(vec.size() + 1); // we need to increase size by one to add val
 
         for (int i = 0; i != position; i++) { // save elements on the left of position
             newVec[i] = vec[i];
         }
-        for (int i = newVec.size() - 1; i != position; i--) { // shift elements to the right by one
-            newVec[i] = vec[i - 1];
+        for (int i = position + 1; i < newVec.size() - 1; i++) { // shift elements to the right by one
+            if (vec[i] != 0) // todo: delete useful 0
+                newVec[i + 1] = vec[i];
         }
         newVec[position] = val; // add new val into position
         return newVec;
+    } else if (position == vec.size()) {
+        return add(vec, val);
     }
 }
 
@@ -35,18 +50,6 @@ float getAverage(std::vector<int> vec) {
     }
     float average = (float) sum / vec.size();
     return average;
-}
-
-std::vector<int> add(std::vector<int> vec, int num) {
-    std::vector<int> newVec(vec.size() + 1);
-
-    for (int i = 0; i < vec.size(); i++) {
-        newVec[i] = vec[i];
-    }
-
-    newVec[vec.size()] = num;
-
-    return newVec;
 }
 
 void inputVector(std::vector<int> &vec) {
