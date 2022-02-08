@@ -25,19 +25,23 @@ std::vector<int> add_to_position(std::vector<int> vec, int val, int position) {
 
         return newVec;
 
-    } else if (position < vec.size()) { // also, we can use function add(std::vector<int> vec, int num) in case position = vec.size()
+    } else if (position < vec.size()) {
+        if (vec[position] == 0) {
+            vec[position] = val;
+            return vec;
+        } else {
 
-        std::vector<int> newVec(vec.size() + 1); // we need to increase size by one to add val
+            std::vector<int> newVec(vec.size() + 1); // we need to increase size by one to add val
 
-        for (int i = 0; i != position; i++) { // save elements on the left of position
-            newVec[i] = vec[i];
+            for (int i = 0; i != position; i++) { // save elements on the left of position
+                newVec[i] = vec[i];
+            }
+            for (int i = position; i < newVec.size() - 1; i++) { // shift elements to the right by one
+                    newVec[i + 1] = vec[i];
+            }
+            newVec[position] = val; // add new val into position
+            return newVec;
         }
-        for (int i = position + 1; i < newVec.size() - 1; i++) { // shift elements to the right by one
-            if (vec[i] != 0) // todo: delete useful 0
-                newVec[i + 1] = vec[i];
-        }
-        newVec[position] = val; // add new val into position
-        return newVec;
     } else if (position == vec.size()) {
         return add(vec, val);
     }
