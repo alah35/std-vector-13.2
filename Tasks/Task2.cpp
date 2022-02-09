@@ -1,4 +1,4 @@
-#include "helper.h"
+#include "../helper.h"
 
 void task2() {
     std::vector<int> List;
